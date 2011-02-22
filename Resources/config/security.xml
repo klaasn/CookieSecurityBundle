@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+  <parameters>
+    <parameter key="cookieuserprovider.class">CookieSecurityBundle\Security\CookieUserProvider</parameter>
+  </parameters>
+
+  <services>
+
+    <service id="cookieuserprovider" class="%cookieuserprovider.class%"/>
+
+    <service id="security.authentication.cookie.provider" 
+	     class="CookieSecurityBundle\Security\CookieProvider" 
+	     public="false">
+      <argument type="service" id="cookieuserprovider"/>
+      <argument type="service" id="security.account_checker" />
+      <argument /> <!-- Provider-shared Key -->
+      <argument type="service" id="security.encoder_factory" />
+    </service>
+
+    <service id="security.authentication.cookie.listener"
+	     class="CookieSecurityBundle\Security\CookieListener"
+	     parent="security.authentication.listener.abstract"
+	     abstract="true">
+    </service>
+
+  </services>
+
+</container>
