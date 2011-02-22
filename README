@@ -1,0 +1,20 @@
+config.yml
+
+security:
+     factories:
+         - "%kernel.root_dir%/../src/CookieSecurityBundle/Resources/config/security_factories.xml"
+
+     providers:
+         cookie:
+             id: cookieuserprovider
+
+     firewalls:
+         public:
+             pattern:   /.*
+             cookie: true 
+
+autoload.php
+    'CookieSecurityBundle'           => __DIR__.'/../src',
+
+AppKernel.php
+           new CookieSecurityBundle\CookieSecurityBundle(),
