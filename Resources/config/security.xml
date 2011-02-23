@@ -22,8 +22,11 @@
 
     <service id="security.authentication.cookie.listener"
 	     class="CookieSecurityBundle\Security\CookieListener"
-	     parent="security.authentication.listener.abstract"
 	     abstract="true">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.authentication.manager" />
+            <argument />
+            <argument type="service" id="logger" on-invalid="null" />
     </service>
 
   </services>
