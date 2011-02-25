@@ -13,8 +13,12 @@ class CookieListener extends AbstractPreAuthenticatedListener
 {
     protected function getPreAuthenticatedData(Request $request)
     {
-        return array('klaas','password');
+        $cookies = $request->cookies;
+        foreach ($cookies->keys() as $key) {
+            if (strpos($key, 'wordpressuser_') === 0) {
+                return array($cookies->get($key), '');
+            }
+        }
     }
-
 }
 
