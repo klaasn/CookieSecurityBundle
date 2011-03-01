@@ -36,7 +36,7 @@ class CookieFactory implements SecurityFactoryInterface
         //$listener->setArgument(2, $id);
 
         if (null === $defaultEntryPoint) {
-            $defaultEntryPoint = 'security.authentication.basic_entry_point';
+            $defaultEntryPoint = 'security.authentication.myform_entry_point';
         }
 
         return array($provider, $listenerId, $defaultEntryPoint);
