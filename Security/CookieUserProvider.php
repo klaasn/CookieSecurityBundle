@@ -5,15 +5,30 @@ namespace CookieSecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\AccountInterface;
 use Symfony\Component\Security\Core\User\User;
+use Sensio\HelloBundle\Model\UserQuery;
 
 class CookieUserProvider implements UserProviderInterface
 {
     function loadUserByUsername($username) {
-        return new User($username, '');
+
+        $user = UserQuery::getUserWithPermissions($username);
+        $permissions = array_keys(unserialize($user->getPermission()));
+
+        $upperCasedPerms = array();
+
+        foreach ($permissions as $key) {
+            $upperCasedPerms[] = 'ROLE_' . strtoupper($key);
+        }
+
+        return new User($username, $user->getPassword(), $upperCasedPerms);
     }
 
     function loadUserByAccount(AccountInterface $account) {
-        return new User($account->getUserName(),'');
+
+        $username = $account->getUserName();
+
+        return $this->loadUserByUsername($username);
+
     }
 
     function supportsClass($class) {}
