@@ -5,7 +5,7 @@ namespace CookieSecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\AccountInterface;
 use Symfony\Component\Security\Core\User\User;
-use Sensio\HelloBundle\Model\UserQuery;
+use WSL\BackendBundle\Model\UserQuery;
 
 class CookieUserProvider implements UserProviderInterface
 {
