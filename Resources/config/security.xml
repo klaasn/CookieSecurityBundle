@@ -28,6 +28,11 @@
             <argument type="service" id="logger" on-invalid="null" />
     </service>
 
+    <service id="security.authentication.myform_entry_point" class="%security.authentication.form_entry_point.class%" public="false">
+      <argument>/../../wp-login.php</argument>
+    </service>
+
+
   </services>
 
 </container>
