@@ -3,7 +3,7 @@
 namespace CookieSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\User;
 use WSL\BackendBundle\Model\UserQuery;
 
@@ -23,9 +23,9 @@ class CookieUserProvider implements UserProviderInterface
         return new User($username, $user->getPassword(), $upperCasedPerms);
     }
 
-    function loadUserByAccount(AccountInterface $account) {
+    function loadUser(UserInterface $user) {
 
-        $username = $account->getUserName();
+        $username = $user->getUserName();
 
         return $this->loadUserByUsername($username);
 

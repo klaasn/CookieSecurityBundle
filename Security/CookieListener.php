@@ -16,9 +16,10 @@ class CookieListener extends AbstractPreAuthenticatedListener
         $cookies = $request->cookies;
         foreach ($cookies->keys() as $key) {
             if (strpos($key, 'wordpressuser_') === 0) {
-                return array($cookies->get($key), '');
+                return array($cookies->get($key), '', '');
             }
         }
+        return array('', '', '');
     }
 }
 

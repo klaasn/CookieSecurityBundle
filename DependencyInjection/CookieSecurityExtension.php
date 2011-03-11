@@ -29,7 +29,7 @@ class CookieSecurityExtension extends Extension
      */
     public function getNamespace()
     {
-        return 'http://www.symfony-project.org/schema/dic/cookiesecurity';
+        return 'http://www.symfony.org/schema/dic/cookiesecurity';
     }
 
     /**

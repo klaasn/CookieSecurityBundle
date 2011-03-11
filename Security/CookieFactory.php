@@ -26,7 +26,7 @@ class CookieFactory implements SecurityFactoryInterface
         $container
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.cookie.provider'))
             ->addArgument(new Reference($userProvider))
-            ->addArgument(new Reference('security.account_checker'))
+            ->addArgument(new Reference('security.user_checker'))
 
         ;
 

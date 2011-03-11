@@ -8,14 +8,14 @@
 
   <services>
 
-    <service id="cookieuserprovider" class="%cookieuserprovider.class%"/>
+    <service id="cookieuserprovider" class="%cookieuserprovider.class%" />
 
     <service id="security.authentication.cookie.provider" 
 	     class="CookieSecurityBundle\Security\CookieProvider" 
 	     public="false">
       <argument type="service" id="cookieuserprovider"/>
-      <argument type="service" id="security.account_checker" />
-      <argument /> <!-- Provider-shared Key -->
+      <argument type="service" id="security.user_checker" />
+      <argument>cookieauth</argument>
       <argument type="service" id="security.encoder_factory" />
     </service>
 
@@ -24,7 +24,7 @@
 	     abstract="true">
             <argument type="service" id="security.context" />
             <argument type="service" id="security.authentication.manager" />
-            <argument />
+	    <argument>cookieauth</argument>
             <argument type="service" id="logger" on-invalid="null" />
     </service>
 
