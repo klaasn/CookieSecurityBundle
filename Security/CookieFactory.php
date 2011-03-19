@@ -3,10 +3,10 @@
 namespace CookieSecurityBundle\Security;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 class CookieFactory implements SecurityFactoryInterface
 {
@@ -43,11 +43,9 @@ class CookieFactory implements SecurityFactoryInterface
     }
 
 
-    public function addConfiguration(NodeBuilder $builder)
+    public function addConfiguration(NodeDefinition $node)
     {
-        $builder
-            ->scalarNode('provider')->end()
-        ;
+        $node->children()->scalarNode('provider')->end();
     }
 
 }
