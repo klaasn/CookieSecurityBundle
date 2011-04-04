@@ -22,13 +22,16 @@ class CookieFactory implements SecurityFactoryInterface
 
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
-        $provider = 'security.authentication.cookie.provider.'.$id;
-        $container
-            ->setDefinition($provider, new DefinitionDecorator('security.authentication.cookie.provider'))
-            ->addArgument(new Reference($userProvider))
-            ->addArgument(new Reference('security.user_checker'))
-
-        ;
+        // with user provider
+        if (isset($config['provider'])) {
+            $provider = 'security.authentication.cookie.provider.'.$id;
+            $container
+                ->setDefinition($provider, new DefinitionDecorator('security.authentication.cookie.provider'))
+                ->addArgument(new Reference($userProvider))
+                ->addArgument(new Reference('security.user_checker'));
+        } else {
+            $provider = 'security.authentication.cookie.provider';
+        }
 
         // listener
         $listenerId = 'security.authentication.cookie.listener.'.$id;
