@@ -8,12 +8,10 @@
 
   <services>
 
-    <service id="cookieuserprovider" class="%cookieuserprovider.class%" />
-
     <service id="security.authentication.cookie.provider" 
 	     class="CookieSecurityBundle\Security\CookieProvider" 
 	     public="false">
-      <argument type="service" id="cookieuserprovider"/>
+      <argument type="service" id="mycookieuserprovider"/>
       <argument type="service" id="security.user_checker" />
       <argument>cookieauth</argument>
       <argument type="service" id="security.encoder_factory" />

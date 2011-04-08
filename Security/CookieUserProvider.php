@@ -4,31 +4,32 @@ namespace CookieSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\User;
-use WSL\BackendBundle\Model\UserQuery;
+use Doctrine\ORM\EntityManager;
 
 class CookieUserProvider implements UserProviderInterface
 {
-    function loadUserByUsername($username) {
+    private $_em;
 
-        $user = UserQuery::getUserWithPermissions($username);
-        $permissions = array_keys(unserialize($user->getPermission()));
-
-        $upperCasedPerms = array();
-
-        foreach ($permissions as $key) {
-            $upperCasedPerms[] = 'ROLE_' . strtoupper($key);
-        }
-
-        return new User($username, $user->getPassword(), $upperCasedPerms);
+    public function __construct($em)
+    {
+        $this->_em = $em;
     }
 
-    function loadUser(UserInterface $user) {
+    public function loadUserByUsername($userName) {
+
+        if ($userName instanceOf UserInterface) {
+            $userName = $userName->getUserName();
+        }
+
+        return $this->_em
+            ->getRepository('WSL\BackendBundle\Entity\User')
+            ->findOneBy(array('login' => $userName));
+    }
+
+    public function loadUser(UserInterface $user) {
 
         $username = $user->getUserName();
-
         return $this->loadUserByUsername($username);
-
     }
 
     function supportsClass($class) {}
