@@ -26,7 +26,7 @@ class CookieUserProvider implements UserProviderInterface
             ->findOneBy(array('login' => $userName));
     }
 
-    public function loadUser(UserInterface $user) {
+    public function refreshUser(UserInterface $user) {
 
         $username = $user->getUserName();
         return $this->loadUserByUsername($username);
